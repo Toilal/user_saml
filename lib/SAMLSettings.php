@@ -27,6 +27,7 @@ use OCP\IRequest;
 use OCP\ISession;
 use OCP\IURLGenerator;
 use OneLogin\Saml2\Constants;
+use OneLogin\Saml2\Utils;
 
 class SAMLSettings {
 	/** @var IURLGenerator */
@@ -54,6 +55,11 @@ class SAMLSettings {
 		$this->config = $config;
 		$this->request = $request;
 		$this->session = $session;
+
+		Utils::setSelfProtocol($this->request->getServerProtocol());
+		Utils::setSelfHost($this->request->getServerHost());
+		Utils::setSelfPort(null);
+		Utils::setProxyVars(true);
 	}
 
 	/**
